@@ -88,10 +88,14 @@ db.users.belongsToMany(db.events, {
 sequelize
   .authenticate()
   .then(() => {
+    db.sequelize.sync({ force: false }).then(() => {
+      console.log("Database created successfully!");
+    });
+
     console.log("Connection has been established successfully.");
   })
   .catch(error => {
-    console.error("Unable to connect to the database:", error);
+    console.error("Unable to connect to the database.", error);
   });
 
 module.exports = {

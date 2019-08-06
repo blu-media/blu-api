@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const uuid = require('uuid/v4');
 const session = require('express-session');
-const cors = require("cors");
+const helmet = require('helmet');
 const path = require("path");
 
 /* Server Initialization */
@@ -25,14 +25,11 @@ app.use(session({
   saveUninitialized: true
 }));
 
-// let corsOption = {
-//   credentials: true,
-//   exposedHeaders: ['x-auth-token'],
-//   methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
-//   origin: true
-// };
-
-// app.use(cors(corsOption));
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    fontSrc: ["'self'", 'data:']
+  }
+}))
 
 /* Router Configuration */
 const mainRouter = require('./routes/routers/router');
@@ -46,6 +43,10 @@ app.use('/api/events', eventRouter);
 app.use('/api/organizations', organizationRouter);
 app.use('/api/users', userRouter);
 app.use('/api/auth', authRouter);
+
+app.use('*', (request, response) => {
+  response.send("Are you sure this is the right route?")
+});
 
 const port = process.env.PORT || 8080;
 
