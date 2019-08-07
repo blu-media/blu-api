@@ -16,6 +16,7 @@ const router = express.Router();
 // passport.authenticate('google-token')
 router.route('/google')
   .post(async (request, response, next) => {
+    console.log(request.body);
     request.session.accessToken = request.body.access_token;
 
     let user = await findOrCreateUser(request.body.profile);

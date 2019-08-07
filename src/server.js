@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const uuid = require('uuid/v4');
 const session = require('express-session');
 const helmet = require('helmet');
+const cors = require("cors");
 const path = require("path");
 
 /* Server Initialization */
@@ -11,6 +12,15 @@ const app = express();
 const server = require('http').Server(app);
 
 const config = require('../config').getConfig(process.env.NODE_ENV);
+
+let corsOption = {
+  credentials: true,
+  exposedHeaders: ['x-auth-token'],
+  methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
+  origin: true
+};
+
+app.use(cors(corsOption));
 
 /* Middleware Functionality */
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -29,7 +39,7 @@ app.use(helmet.contentSecurityPolicy({
   directives: {
     fontSrc: ["'self'", 'data:']
   }
-}))
+}));
 
 /* Router Configuration */
 const mainRouter = require('./routes/routers/router');
