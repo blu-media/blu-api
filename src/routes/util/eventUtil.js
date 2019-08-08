@@ -76,16 +76,17 @@ const addRSVP = async (request, response) => {
 };
 
 const createEvent = (request, response) => {
-  request.body.id = uniqid();
+  let eventId = uniqid();
+  request.body.id = eventId;
+  request.body.qrCode = createQRCode(eventId);
 
   db.events.create(request.body).then(event => {
     response.send(event);
   });
 };
 
-const createQRCode = eventId => {
+const createQRCode = (eventId) => {
   return new Promise((resolve, reject) => {
-    console.log(`${config.client.CLIENT_URL}/events/${eventId}`);
     qr.toDataURL(`${config.client.CLIENT_URL}/events/${eventId}`, (error, url) => {
       if (error) reject(error);
 
