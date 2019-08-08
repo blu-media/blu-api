@@ -14,6 +14,9 @@ const config = {
     session: {
       SESSION_SECRET: process.env.SESSION_SECRET
     },
+    client: {
+      CLIENT_URL: process.env.DEV_CLIENT_URL
+    }
   },
   production: {
     database: {
@@ -24,6 +27,9 @@ const config = {
     },
     session: {
       SESSION_SECRET: process.env.SESSION_SECRET
+    },
+    client: {
+      CLIENT_URL: process.env.STAGE_CLIENT_URL
     }
   }
 }

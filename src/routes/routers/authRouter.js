@@ -1,12 +1,13 @@
 /* NPM Installation Dependencies */
 const express = require("express");
-const passport = require('passport');
-var GoogleTokenStrategy = require('passport-google-token').Strategy;
-var gCal = require('google-calendar');
-const path = require("path");
+// const passport = require('passport');
+// var GoogleTokenStrategy = require('passport-google-token').Strategy;
+// var gCal = require('google-calendar');
+// const path = require("path");
 
 // Import authentication util.
-const { generateToken, sendToken, findOrCreateUser } = require('../util/authUtil');
+const { generateToken, sendToken, findOrCreateUser } =
+  require('../util/authUtil');
 
 const router = express.Router();
 

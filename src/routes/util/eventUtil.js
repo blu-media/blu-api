@@ -10,6 +10,8 @@ const Op = db.Sequelize.Op;
 /* Common Utility Functions */
 const util = require("./commonUtil");
 
+const config = require('../../../config').getConfig(process.env.NODE_ENV);
+
 const addAttendee = async (request, response) => {
   let event = await util.getEventById(request.params.eventId);
   let user = await util.getUserById(request.body.userId);
@@ -83,7 +85,7 @@ const createEvent = (request, response) => {
 
 const createQRCode = eventId => {
   return new Promise((resolve, reject) => {
-    qr.toDataURL(`localhost:8080/events/${eventId}`, (error, url) => {
+    qr.toDataURL(`${config.client.CLIENT_URL}/events/${eventId}`, (error, url) => {
       if (error) reject(error);
 
       resolve(url);
