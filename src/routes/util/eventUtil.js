@@ -85,6 +85,7 @@ const createEvent = (request, response) => {
 
 const createQRCode = eventId => {
   return new Promise((resolve, reject) => {
+    console.log(`${config.client.CLIENT_URL}/events/${eventId}`);
     qr.toDataURL(`${config.client.CLIENT_URL}/events/${eventId}`, (error, url) => {
       if (error) reject(error);
 
