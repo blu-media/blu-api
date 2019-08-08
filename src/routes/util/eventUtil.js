@@ -75,10 +75,12 @@ const addRSVP = async (request, response) => {
     });
 };
 
-const createEvent = (request, response) => {
+const createEvent = async (request, response) => {
   let eventId = uniqid();
   request.body.id = eventId;
-  request.body.qrCode = createQRCode(eventId);
+  let qrCode = await createQRCode(eventId);
+  request.body.qrCode = qrCode;
+
 
   db.events.create(request.body).then(event => {
     response.send(event);
